@@ -8,29 +8,25 @@ router.route('/')
 
     .post((req, res) => {
         user.addUser({
+            username: req.body.username,
             email: req.body.email,
-            passwordUser: req.body.passwordUser,
-            name: req.body.name,
-            phoneNumber: req.body.phoneNumber,
-            address: req.body.address
+            password: req.body.password
         })
         res.json({ status: 'insert user sukses' })
     })
 
 router.route('/:idUser')
     .put((req, res) => {
-        user.editUser(req.params.idUser, {
+        user.editUser(req.params.iduser, {
+            username: req.body.username,
             email: req.body.email,
-            passwordUser: req.body.passwordUser,
-            name: req.body.name,
-            phoneNumber: req.body.phoneNumber,
-            address: req.body.address
+            password: req.body.password
         })
         res.json({ status: 'update user sukses'})
     })
 
     .delete((req, res) => {
-        user.deleteUser(req.params.idUser )
+        user.deleteUser(req.params.iduser )
         res.json({ status: 'delete user sukses'})
     })
 

@@ -4,22 +4,22 @@ const crypto = require('crypto');
 let encrypt = (password) => crypto.createHash('sha256').update(JSON.stringify({ password, key: 'p4NduN4kal' })).digest('hex')
 
 module.exports = {
-    addUser: (data = { email, passwordUser, name, phoneNumber, address }) => {
-        query.insert({ passwordUser: encrypt(data.passwordUser), ...data})
+    addUser: (data = { username, email, password }) => {
+        query.insert({ password: encrypt(data.password), ...data})
     },
-    editUser: (idUser, data = { email, passwordUser, name, phoneNumber, address }) => {
-        query.update(data, { idUser })
+    editUser: (iduser, data = { username, email, password }) => {
+        query.update(data, { iduser })
     },
     listUser: () => {
         return query.read()
     },
-    deleteUser: (idUser) => {
-        query.delete({ idUser })
+    deleteUser: (iduser) => {
+        query.delete({ iduser })
     },
-    loginUser: (email, passwordUser) => {
-        query.readWhere({ email }).then(hasil => {
+    loginUser: (username, password) => {
+        query.readWhere({ username }).then(hasil => {
             if (hasil.length > 0) {
-                if (hasil[0].passwordUser === encrypt(passwordUser))
+                if (hasil[0].password === encrypt(password))
                     return true
                 else
                     return false
